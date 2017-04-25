@@ -9,6 +9,10 @@
 	Hello world!  
 </h1>
 
+<c:forEach var="henkiloListaus" items="${henkiloListaus}">
+		<p>${henkiloListaus.etunimi} ${henkiloListaus.sukunimi}</p>
+	</c:forEach>
+
 <P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>
