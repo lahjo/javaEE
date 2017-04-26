@@ -45,9 +45,17 @@ public class henkiloDAO {
 		return person;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<henkilo> getBySnn(String snn) {
+		List<henkilo> person = (List<henkilo>) em.createQuery("select t from henkilo t where t.henkilotunnus=:snn")
+				.setParameter("snn", snn).getResultList();
+		
+		return person;
+	}
+	
+	
 	public henkilo inserNewPerson(henkilo person) {
 		em.persist(person);
-		//em.persist(person);
 		return person;
 	}
 

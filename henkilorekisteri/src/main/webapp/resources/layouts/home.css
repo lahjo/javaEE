@@ -1,7 +1,16 @@
 @CHARSET "ISO-8859-1";
 
-#addPerson {
+#faIcon {
     font-size: 20px;
+    
+}
+
+td {
+	font-size: 13px;
+}
+
+th {
+	font-size: 14px;
 }
 
 .search-form .form-group {

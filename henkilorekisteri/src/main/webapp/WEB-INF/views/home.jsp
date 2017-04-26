@@ -36,7 +36,7 @@
 		    <tbody>
 				<tr>
 			        <td>  
-					  <a href="lisaaHenkilo/" class="btn" role="button"><i class="fa fa-user-plus" id="addPerson"></i></a>
+					  <a href="lisaaHenkilo/" class="btn" role="button"><i class="fa fa-user-plus" id="faIcon"></i></a>
 			        </td>
 			        <td></td>
 			        <td></td>
@@ -61,10 +61,12 @@
 		      <tr>
 		        <th>Nimi</th>
 		        <th>Henkilötunnus</th>
-		        <th>puhelinnumero</th>
-		        <th>työsuhde alkanut</th>
+		        <th>Puhelinnumero</th>
+		        <th>Sähköposti</th>
+		        <th>Työsuhde alkanut</th>
 		        <th>Tilinumero</th>
-		        <th>veronumero</th>
+		        <th>Veronumero</th>
+		        <th></th>
 		      </tr>
 		    </thead>
 		    <tbody>
@@ -74,9 +76,11 @@
 			        <td>${henkiloListaus.etunimi} ${henkiloListaus.sukunimi} </td>
 			        <td>${henkiloListaus.henkilotunnus}</td>
 			        <td>${henkiloListaus.puhelinnumero}</td>
+			        <td>${henkiloListaus.sahkoposti}</td>
 			        <td>${henkiloListaus.tyosuhdealkanut}</td>
 			        <td>${henkiloListaus.tilinumero}</td>
 			        <td>${henkiloListaus.veronumero}</td>
+			        <td><a href="muokkaaHenkilo/${henkiloListaus.henkilotunnus}"><span class="glyphicon glyphicon-edit" id="faIcon"></span></a></td>
 			     </tr>
 			</c:forEach>
 		      
@@ -85,7 +89,5 @@
     </div>
   </div>
 </div>
-
-<P>${serverTime}. </P>
 </body>
 </html>

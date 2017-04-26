@@ -1,7 +1,5 @@
 package fi.jamk.henkilorekisteri;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 import java.util.List;
@@ -26,18 +24,11 @@ public class HomeController {
 	
 	@Inject
 	private henkiloDAO personDao;
+	private sql jdbcMethod = new sql();
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("requesting path: /, user location: ", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
 		
 		List<henkilo> henkiloLista = personDao.getAll();
 		model.addAttribute("henkiloListaus", henkiloLista);
@@ -63,6 +54,27 @@ public class HomeController {
 		return "lisaaHenkilo";
 	}
 	
+	@RequestMapping(value="muokkaaHenkilo/{ssn}", method=RequestMethod.GET)
+	public String getEditPersonView(@PathVariable String ssn, Model model) {
+		logger.info("requesting path: /muokkaaHenkilo/{ssn}, user location: ");
+		
+		List<henkilo> henkiloLista = personDao.getBySnn(ssn);
+		
+		logger.info(ssn);
+		
+		model.addAttribute("henkiloListaus", henkiloLista);
+		
+		return "muokkaaHenkilo";
+	}
+	
+	@RequestMapping(value="poistaHenkilo/{ssn}", method=RequestMethod.GET)
+	public String getDeletePerson(@PathVariable String ssn, Model model) {
+		logger.info("requesting path: poistaHenkilo/{ssn}, user location: ");
+		
+		jdbcMethod.delete(ssn);
+		
+		return "redirect:/";
+	}
 
 	@RequestMapping(value="/lisaaHenkilo/", method = RequestMethod.POST)
 	public String AddNewPerson(henkilo person, Locale locale,
@@ -79,6 +91,13 @@ public class HomeController {
 		person.setHenkilotunnus(params.get("henkilotunnus").toString().replace("]", "")
 				   													  .replace("[", ""));
 		
+		person.setPuhelinnumero(params.get("puhelinnumero").toString().replace("]", "")
+					  .replace("[", ""));
+		
+		person.setSahkoposti(params.get("sahkoposti").toString().replace("]", "")
+				  .replace("[", ""));
+	
+		
 		person.setTyosuhdealkanut(params.get("tyosuhdealkanut").toString().replace("]", "")
 																		  .replace("[", ""));
 		
@@ -90,6 +109,38 @@ public class HomeController {
 		
 		personDao.inserNewPerson(person);
 		
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/muokkaaHenkilo/{ssn}", method = RequestMethod.POST)
+	public String editPerson(henkilo person, Locale locale,
+			@RequestParam MultiValueMap<String, String> params) {
+		
+		logger.info("requesting path: /muokkaaHenkilo/{ssn}, method: POST, user location: ", locale);
+		
+		person.setSukunimi(params.get("sukunimi").toString().replace("]", "")
+				   								 			.replace("[", ""));
+		
+		person.setPuhelinnumero(params.get("puhelinnumero").toString().replace("]", "")
+					  .replace("[", ""));
+		
+		person.setSahkoposti(params.get("sahkoposti").toString().replace("]", "")
+				  .replace("[", ""));
+	
+		
+		person.setTyosuhdealkanut(params.get("tyosuhdealkanut").toString().replace("]", "")
+																		  .replace("[", ""));
+		
+		person.setTilinumero(params.get("tilinumero").toString().replace("]", "")
+				   												.replace("[", ""));
+		
+		person.setVeronumero(params.get("veronumero").toString().replace("]", "")
+				   												.replace("[", ""));
+
+		
+		jdbcMethod.update(person.getSukunimi(), person.getHenkilotunnus(), person.getPuhelinnumero(), person.getSahkoposti(),
+						  person.getTyosuhdealkanut(), person.getTilinumero(), person.getVeronumero());
+	
 		return "redirect:/";
 	}
 	

@@ -30,39 +30,39 @@
     </div>
 
     <div class="col-sm-10">
-      <h4><small>Lisää uusi henkilö</small></h4>
+      <h4><small>Muokkaa henkilön tietoja</small></h4>
       <hr>
        	 	 	 	
       <!--  -->
+      <c:forEach var="henkiloListaus" items="${henkiloListaus}">
 	          <div class="panel panel-info">
 	            <div class="panel-heading">
-	              <h3 class="panel-title">Uusi henkilö</h3>
+	              <h3 class="panel-title">
+	              	
+			        	${henkiloListaus.etunimi} 
+					
+	              </h3>
 	            </div>
 	            <form method="POST">
 	            <div class="panel-body">
 	              <div class="row">
 	                <div class=" col-md-9 col-lg-9 "> 
 	                  <table class="table table-user-information">
+	                  <input type="text" hidden="true" name="henkilotunnus" value="${henkiloListaus.henkilotunnus}" readonly="readonly" >
+	                  <input type="text" hidden="true" name="etunimi" value="${henkiloListaus.etunimi}" readonly="readonly" >
+
 	                    <tbody>
 	                      <tr>
-	                        <td>Etunimi</td>
-	                        <td><input class="form-control" name="etunimi" placeholder="Etunimi" type="text" required="required"></td>
-	                      </tr>
-	                      <tr>
 	                        <td>Sukunimi:</td>
-	                        <td><input class="form-control" name="sukunimi" placeholder="Sukunimi" type="text" required="required"></td>
+	                        <td><input class="form-control" name="sukunimi" placeholder="Sukunimi" type="text" value="${henkiloListaus.sukunimi}" required="required"></td>
 	                      </tr>
 	                      <tr>
-	                        <td>Henkilötunnus</td>
-	                        <td><input class="form-control" name="henkilotunnus" placeholder="Henkilötunnus" type="text" required="required"></td>
-	                      </tr>
-	                   	  <tr>
 	                        <td>Puhelinnumero</td>
-	                        <td><input class="form-control" name="puhelinnumero" placeholder="Puhelinnumero" type="text" ></td>
+	                        <td><input class="form-control" name="puhelinnumero" placeholder="Puhelinnumero" value="${henkiloListaus.puhelinnumero}" type="text" ></td>
 	                      </tr>
 	                      <tr>
 	                        <td>Sähköposti</td>
-	                        <td><input class="form-control" name="sahkoposti" placeholder="Sähköposti" type="text" ></td>
+	                        <td><input class="form-control" name="sahkoposti" placeholder="Sähköposti" value="${henkiloListaus.sahkoposti}" type="text" ></td>
 	                      </tr>
 	                         <tr>
 	                             <tr>
@@ -73,17 +73,17 @@
 					         <i class="fa fa-calendar">
 					         </i>
 					        </div>
-					        <input class="form-control" id="date" name="tyosuhdealkanut" placeholder="VVVV-KK-PP" type="text" required="required">
+					        <input class="form-control" id="date" name="tyosuhdealkanut" placeholder="VVVV-KK-PP" type="text" value="${henkiloListaus.tyosuhdealkanut}" required="required">
 					       </div>
 	                        </td>
 	                      </tr>
 	                        <tr>
 	                        <td>Tilinumero</td>
-	                        <td><input class="form-control" name="tilinumero" placeholder="Tilinumero" type="text" required="required"></td>
+	                        <td><input class="form-control" name="tilinumero" placeholder="Tilinumero" type="text" value="${henkiloListaus.tilinumero}" required="required"></td>
 	                      </tr>
 	                      <tr>
 	                        <td>veronumero</td>
-	                        <td><input class="form-control" name="veronumero" placeholder="Veronumero" type="text" required="required"></td>
+	                        <td><input class="form-control" name="veronumero" placeholder="Veronumero" type="text" value="${henkiloListaus.veronumero}" required="required"></td>
 	                      </tr>
 	                    </tbody>
 	                  </table>
@@ -94,12 +94,12 @@
                  		<button type="submit" class="btn btn-success">
 						   <span class="glyphicon glyphicon-ok"></span>
 						</button>
+						
+						<a href="/henkilorekisteri/poistaHenkilo/${henkiloListaus.henkilotunnus}" class="pull-right"><span class="glyphicon glyphicon-remove-sign" id="faIcon"></span></a>
                     </div>
                 </form>
-	            
 	          </div>
-      <!--  -->
-      
+	     </c:forEach>
     </div>
   </div>
 </div>
