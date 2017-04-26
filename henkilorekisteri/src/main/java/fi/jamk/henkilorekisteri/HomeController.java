@@ -6,26 +6,21 @@ import java.util.Locale;
 
 import java.util.List;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import javax.inject.Inject;
-import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
+@RequestMapping(value = "/")
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -33,9 +28,9 @@ public class HomeController {
 	@Inject
 	private henkiloDAO personDao;
 	
-	@RequestMapping(value = "henkilot/", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+		logger.info("requesting path: /, user location: ", locale);
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
@@ -46,26 +41,37 @@ public class HomeController {
 		
 		
 		List<henkilo> henkiloLista = personDao.getAll();
-		
-		System.out.println(henkiloLista);
-		
 		model.addAttribute("henkiloListaus", henkiloLista);
 		
 		return "home";
 	}
 	
-	@RequestMapping(value="henkilot/{name}", method=RequestMethod.GET)
+	@RequestMapping(value="/{name}", method=RequestMethod.GET)
 	public String getView(@PathVariable String name, Model model) {
 		List<henkilo> henkiloLista = personDao.getByName(name);
 		
 		System.out.println(name);
 		
-		System.out.println(henkiloLista);
-		
 		model.addAttribute("henkiloListaus", henkiloLista);
-		
 		
 		return "home";
 	}
 	
+	@RequestMapping(value="/", method = RequestMethod.POST)
+	public String filterHome(henkilo person, @RequestParam String name, Locale locale) {
+		logger.info("requesting path: /{Name}, user location: ", locale);
+		
+		person.setEtunimi(name);
+		
+		return "redirect:/" + person.getEtunimi();
+	}
+	
+	@RequestMapping(value="/{name}", method = RequestMethod.POST)
+	public String secondfilterHome(henkilo person, @RequestParam String name, Locale locale) {
+		logger.info("requesting path: /{Name}, user location: ", locale);
+		
+		person.setEtunimi(name);
+		
+		return "redirect:/" + person.getEtunimi();
+	}
 }
