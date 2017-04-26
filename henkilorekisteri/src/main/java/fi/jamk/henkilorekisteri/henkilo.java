@@ -26,6 +26,7 @@ public class henkilo implements Serializable {
 		this.etunimi = etunimi;
 	}
 
+	
 	public String getSukunimi() {
 		return sukunimi;
 	}
@@ -81,6 +82,4 @@ public class henkilo implements Serializable {
 	public void setSahkoposti(String sahkoposti) {
 		this.sahkoposti = sahkoposti;
 	}
-	
-	
 }

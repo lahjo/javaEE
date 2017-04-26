@@ -44,5 +44,11 @@ public class henkiloDAO {
 		
 		return person;
 	}
+	
+	public henkilo inserNewPerson(henkilo person) {
+		em.persist(person);
+		//em.persist(person);
+		return person;
+	}
 
 }

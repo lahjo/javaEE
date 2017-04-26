@@ -22,14 +22,14 @@
 
 <div class="container-fluid">
   <div class="row content">
-    <div class="col-sm-3 sidenav">
+    <div class="col-sm-2 sidenav">
       <ul class="nav nav-pills nav-stacked">
         <li><a href="/henkilorekisteri/">Henkilölista</a></li>
         <li class="active"><a>Asetukset</a></li>
       </ul><br>
     </div>
 
-    <div class="col-sm-9">
+    <div class="col-sm-10">
       <h4><small>Asetukset</small></h4>
       <hr>
     </div>
