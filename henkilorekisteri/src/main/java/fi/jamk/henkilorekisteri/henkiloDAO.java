@@ -35,5 +35,14 @@ public class henkiloDAO {
 		List<henkilo> person = (List<henkilo>) em.createQuery("select t from henkilo t").getResultList();
 		return person;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<henkilo> getByName(String name) {
+		
+		List<henkilo> person = (List<henkilo>) em.createQuery("select t from henkilo t where t.etunimi=:name")
+				.setParameter("name", name).getResultList();
+		
+		return person;
+	}
 
 }
