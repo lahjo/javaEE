@@ -33,7 +33,7 @@ public class HomeController {
 	@Inject
 	private henkiloDAO personDao;
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "henkilot/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
@@ -54,7 +54,7 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value="/{name}", method=RequestMethod.GET)
+	@RequestMapping(value="henkilot/{name}", method=RequestMethod.GET)
 	public String getView(@PathVariable String name, Model model) {
 		List<henkilo> henkiloLista = personDao.getByName(name);
 		
