@@ -25,7 +25,6 @@
     <div class="col-sm-2 sidenav">
       <ul class="nav nav-pills nav-stacked">
         <li><a href="/henkilorekisteri/">Henkilölista</a></li>
-        <li><a href="/henkilorekisteri/asetukset/">Asetukset</a></li>
       </ul><br>
     </div>
 
