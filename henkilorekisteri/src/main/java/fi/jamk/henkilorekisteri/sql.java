@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import org.springframework.context.annotation.PropertySource;
+
+@PropertySource("classpath:application.properties")
 public class sql {
 
 	public void update (String sukunimi, String henkilotunnus, String puhelinnumero, String sahkoposti,
