@@ -24,7 +24,6 @@ public class HomeController {
 	
 	@Inject
 	private henkiloDAO personDao;
-	private sql jdbcMethod = new sql();
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -39,8 +38,6 @@ public class HomeController {
 	@RequestMapping(value="/{name}", method=RequestMethod.GET)
 	public String getView(@PathVariable String name, Model model) {
 		List<henkilo> henkiloLista = personDao.getByName(name);
-		
-		System.out.println(name);
 		
 		model.addAttribute("henkiloListaus", henkiloLista);
 		
@@ -71,7 +68,7 @@ public class HomeController {
 	public String getDeletePerson(@PathVariable String ssn, Model model) {
 		logger.info("requesting path: poistaHenkilo/{ssn}, user location: ");
 		
-		jdbcMethod.delete(ssn);
+		personDao.delete(ssn);
 		
 		return "redirect:/";
 	}
@@ -138,7 +135,7 @@ public class HomeController {
 				   												.replace("[", ""));
 
 		
-		jdbcMethod.update(person.getSukunimi(), person.getHenkilotunnus(), person.getPuhelinnumero(), person.getSahkoposti(),
+		personDao.update(person.getSukunimi(), person.getHenkilotunnus(), person.getPuhelinnumero(), person.getSahkoposti(),
 						  person.getTyosuhdealkanut(), person.getTilinumero(), person.getVeronumero());
 	
 		return "redirect:/";
