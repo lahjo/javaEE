@@ -34,4 +34,13 @@ public class ApiController {
 		
 		return person;
 	}
+	
+	@RequestMapping(value = "api/henkilotunnus/{ssn}", method = RequestMethod.GET, headers="Accept=application/json")
+	public @ResponseBody List<henkilo> getHenkiloBySnn(@PathVariable String ssn) {
+		logger.info("API Controller!.");
+		
+		List<henkilo> person = personDao.getBySnn(ssn);
+		
+		return person;
+	}
 }
